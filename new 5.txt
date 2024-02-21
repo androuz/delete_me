@@ -1,45 +1,5 @@
-@Configuration
-@EnableBatchProcessing
-public class BatchConfig {
-
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-
-    @Autowired
-    public StepBuilderFactory stepBuilderFactory;
-
-    @Autowired
-    private DataSource dataSource;
-
-    // Define Job
-    @Bean
-    public Job importPersonJob() {
-        // job definition
-    }
-
-    // Define Step
-    @Bean
-    public Step step1() {
-        // step definition
-    }
-
-    // JSON ItemReader
-    @Bean
-    public JsonItemReader<Person> reader() {
-        // reader definition
-    }
-
-    // Processor (optional)
-    @Bean
-    public ItemProcessor<Person, Person> processor() {
-        return person -> person; // or any processing
-    }
-
-    // JPA ItemWriter
-    @Bean
-    public JpaItemWriter<Person> writer(EntityManagerFactory entityManagerFactory) {
-        JpaItemWriter<Person> writer = new JpaItemWriter<>();
-        writer.setEntityManagerFactory(entityManagerFactory);
-        return writer;
-    }
-}
+    <!-- Jackson for JSON processing -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
