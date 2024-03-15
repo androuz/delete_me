@@ -125,4 +125,15 @@ public class BatchConfiguration {
         jobRegistryBeanPostProcessor.setJobRegistry(jobRegistry);
         return jobRegistryBeanPostProcessor;
     }
+
+    @Bean(name = "taskExecutor")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("JobLaunch-");
+        executor.initialize();
+        return executor;
+    }
 }
