@@ -35,12 +35,9 @@ public class BatchJobLaunchController {
 
     @GetMapping("/presignedurl")
     public String getPresignedUrl() throws Exception {
-        Duration urlExpiration = Duration.ofMinutes(10); // Example: URL valid for 10 minutes
-        Map<String, String> metadata = Map.of(
-                "author", "Bob",
-                "version", "1.0.0.0"
-        );
-        String presignedUrl = s3Service.createPresignedUrl("my-bucket-name", "my-object-key", metadata, urlExpiration);
+        Duration urlExpiration = Duration.ofMinutes(60); // Example: URL valid for 10 minutes
+        Map<String, String> metadata = Map.of();
+        String presignedUrl = s3Service.createPresignedUrl("scib-des-ln-mercury", "bdh3bulkapitest/filename.json", metadata, urlExpiration);
         return presignedUrl;
     }
 }
