@@ -8,8 +8,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.util.Map;
 
 import java.time.Duration;
-import org.slf4j.Logger;
+import org.springframework.stereotype.Service;
 
+@Service
 public class S3Service {
 
     private final S3Client s3Client;
@@ -21,7 +22,7 @@ public class S3Service {
     }
 
     /* Create a presigned URL to use in a subsequent PUT request */
-    public String createPresignedUrl(String bucketName, String keyName, Map<String, String> metadata) {
+    public String createPresignedUrl(String bucketName, String keyName, Map<String, String> metadata, Duration expires) {
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(keyName)
@@ -29,7 +30,7 @@ public class S3Service {
                 .build();
 
         PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(10))  // The URL expires in 10 minutes.
+                .signatureDuration(expires)  // The URL expires in 10 minutes.
                 .putObjectRequest(objectRequest)
                 .build();
 
